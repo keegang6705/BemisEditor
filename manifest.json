@@ -1,0 +1,1 @@
+{"name":"BemisEditor","version":"1.8.5","description":"BemisEditor For Chrome","manifest_version":3,"permissions":["activeTab","storage","scripting"],"icons":{"128":"/image/col_studio.png"},"action":{"default_popup":"/popup/popup.html","default_icon":"/image/col_studio.png"}}
