@@ -10,9 +10,8 @@ async function check(){
       const remoteVersion = parseInt((remoteManifest.version)[0]);
       if (LocalVersion!==remoteVersion) {
         createOverlay();
-      } else {
-        console.log(document.body.innerHTML = "BemisEditor/script/version.js:"+"\nเวอร์ชั่นปัจจุบัน:"+localManifest.version+"\nเวอร์ชั่นล่าสุด:"+remoteManifest.version)
       }
+      document.getElementById("container").innerHTML = "เวอร์ชั่นปัจจุบัน:"+localManifest.version+" เวอร์ชั่นล่าสุด:"+remoteManifest.version;
     } catch (error) {
         alert('Error fetching versions \nplease check your internet connection\n'+ error);
       }
@@ -42,10 +41,10 @@ function createOverlay() {
       color: white;
       font-size: 50px;
       padding: 15px 30px;
-      background-color: #333;
       border-radius: 5px;
       user-select: none;
     `;
+    button.className="btn-danger"
     button.addEventListener('click', () => {
         chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/bemiseditor/lfegfcllckbmjfmdceabejdbnhofnbpo' }); // Replace with your desired URL
       });
