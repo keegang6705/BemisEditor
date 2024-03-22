@@ -8,12 +8,48 @@ async function check(){
       const remoteResponse = await fetch('https://raw.githubusercontent.com/keegang6705/BemisEditor/master/manifest.json');
       const remoteManifest = await remoteResponse.json();
       const remoteVersion = parseInt((remoteManifest.version)[0]);
-      if (remoteVersion > LocalVersion) {
-      } else {     
+      if (LocalVersion!==remoteVersion) {
+        createOverlay();
+      } else {
+        console.log(document.body.innerHTML = "BemisEditor/script/version.js:"+"\nเวอร์ชั่นปัจจุบัน:"+localManifest.version+"\nเวอร์ชั่นล่าสุด:"+remoteManifest.version)
       }
-      console.log("BemisEditor/script/version.js:Local"+localManifest.version+",Remote"+remoteManifest.version)
     } catch (error) {
         alert('Error fetching versions \nplease check your internet connection\n'+ error);
       }
   }
 check();
+
+function createOverlay() {
+    const overlay = document.createElement('div');
+    overlay.id = 'overlay';
+    overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+    `;
+    const button = document.createElement('a');
+    button.textContent = 'UPDATE';
+    button.style.cssText = `
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-decoration: none;
+      color: white;
+      font-size: 50px;
+      padding: 15px 30px;
+      background-color: #333;
+      border-radius: 5px;
+      user-select: none;
+    `;
+    button.addEventListener('click', () => {
+        chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/bemiseditor/lfegfcllckbmjfmdceabejdbnhofnbpo' }); // Replace with your desired URL
+      });
+    overlay.appendChild(button);
+    document.body.appendChild(overlay);
+  }
+  
