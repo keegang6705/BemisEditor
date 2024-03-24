@@ -52,6 +52,9 @@ function createOverlay() {
     button.addEventListener('click', () => {
         chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/bemiseditor/lfegfcllckbmjfmdceabejdbnhofnbpo' }); // Replace with your desired URL
       });
+      const text = document.createElement('p');
+      text.textContent = "การอัพเดทที่จำเป็น โปรดอัพเดทเป็นเวอร์ชั่นล่าสุด"
+      overlay.appendChild(text);
     overlay.appendChild(button);
     document.body.appendChild(overlay);
   }
