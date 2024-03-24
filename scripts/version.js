@@ -10,6 +10,10 @@ async function check(){
       const remoteVersion = parseInt((remoteManifest.version)[0]);
       if (LocalVersion!==remoteVersion) {
         createOverlay();
+      } else {
+        if(parseFloat(localManifest.version)<parseFloat(remoteManifest.version)){
+          updateButton();
+        }
       }
       document.getElementById("container").innerHTML = "เวอร์ชั่นปัจจุบัน:"+localManifest.version+" เวอร์ชั่นล่าสุด:"+remoteManifest.version;
     } catch (error) {
@@ -52,3 +56,22 @@ function createOverlay() {
     document.body.appendChild(overlay);
   }
   
+  function updateButton(){
+    const container = document.getElementById("container2");
+    const button = document.createElement('a');
+    button.textContent = 'UPDATE';
+    button.style.cssText = `
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      padding: 5px 100px;
+      border-radius: 5px;
+      user-select: none;
+    `;
+    button.className="btn-danger"
+    button.addEventListener('click', () => {
+        chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/bemiseditor/lfegfcllckbmjfmdceabejdbnhofnbpo' }); // Replace with your desired URL
+      });
+    container.appendChild(button);
+    container.appendChild(document.createElement("p"))
+  }
