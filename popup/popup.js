@@ -1,6 +1,7 @@
 console.log("BemisEditor/popup/popup.js:LOADED");
 const open_editor_btn = document.getElementById("btn-open-editor");
 const send_email_btn = document.getElementById("btn-send-email");
+const donate_btn = document.getElementById("btn-donate");
 var input_text = document.getElementById("textarea-input");
 function stringTo2DArray(t) {
   try {
@@ -47,3 +48,8 @@ input_text.addEventListener("keydown", function (t) {
            url: 'https://mail.google.com/mail/u/0/?fs=1&to=darunphobwi@gmail.com&su=BemisEditor-BugReport&body=อธิบายปัญหาของคุณ:&tf=cm' 
           });
   });
+  donate_btn.addEventListener("click", function () {
+    chrome.tabs.create({
+       url: 'https://keegang.000.pe/menu/donate' 
+      });
+});

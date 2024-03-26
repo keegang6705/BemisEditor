@@ -1,6 +1,6 @@
 {
   "name": "BemisEditor",
-  "version": "2.5",
+  "version": "2.6",
   "description": "BemisEditor For Chrome",
   "manifest_version": 3,
   "permissions": ["activeTab", "storage", "scripting"],
