@@ -3,6 +3,66 @@ const open_editor_btn = document.getElementById("btn-open-editor");
 const send_email_btn = document.getElementById("btn-send-email");
 const donate_btn = document.getElementById("btn-donate");
 var input_text = document.getElementById("textarea-input");
+const settings_btn = document.getElementById("btn-settings");
+const settings_container = document.getElementById("settings-container");
+var settingCheckboxes = document.querySelectorAll('input[type="checkbox"][id$="-state"]');
+
+
+
+
+function loadSettings() {
+  var settingCheckboxes = document.querySelectorAll('input[type="checkbox"][id$="-state"]');
+
+
+  chrome.storage.sync.get(null, function(result) {
+    if (chrome.runtime.lastError) {
+      alert('Error loading setting:', settings, chrome.runtime.lastError);
+      return;
+    }
+
+    var settingValue = result
+    if (JSON.stringify(settingValue) === "{}"){
+      alert("empty")
+      return;
+    }
+    for (var i = 0; i < settingCheckboxes.length; i++) {
+      var checkbox = settingCheckboxes[i];
+      checkbox.checked= settingValue[checkbox.id]
+    }
+  });
+  }
+loadSettings()
+
+function saveSettings() {
+  var settingCheckboxes = document.querySelectorAll('input[type="checkbox"][id$="-state"]');
+  var settings = {};
+  for (var i = 0; i < settingCheckboxes.length; i++) {
+    var checkbox = settingCheckboxes[i];
+    settings[checkbox.id] = checkbox.checked;
+    
+  }
+
+  chrome.storage.sync.set(settings, function() {
+    console.log("BemisEditor/popup/popup.js:SETTING SAVED");
+  });
+
+
+}
+for (var i = 0; i < settingCheckboxes.length; i++) {
+  var checkbox = settingCheckboxes[i];
+  checkbox.addEventListener('change', function() {
+    saveSettings();
+  });
+}
+
+settings_btn.addEventListener("click", function() {
+  if (settings_container.style.display === "none") {
+    settings_container.style.display = "block";
+  } else {
+    settings_container.style.display = "none";
+  }
+});
+
 function stringTo2DArray(t) {
   try {
     var e = t.trim().split("\n"),
@@ -52,4 +112,6 @@ input_text.addEventListener("keydown", function (t) {
     chrome.tabs.create({
        url: 'https://keegang.000.pe/menu/donate' 
       });
+
 });
+
