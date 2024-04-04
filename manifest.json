@@ -1,7 +1,7 @@
 {
   "name": "BemisEditor",
-  "version": "2.6",
-  "description": "BemisEditor For Chrome",
+  "version": "2.7",
+  "description": "ตัวกรอกคะแนน Bemis อย่างรวดเร็ว",
   "manifest_version": 3,
   "permissions": ["activeTab", "storage", "scripting"],
   "icons": { "128": "/image/col_studio.png" },
