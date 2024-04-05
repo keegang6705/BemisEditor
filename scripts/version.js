@@ -9,7 +9,7 @@ async function check(){
       const remoteManifest = await remoteResponse.json();
       const remoteVersion = parseInt((remoteManifest.version)[0]);
       if (LocalVersion<remoteVersion) {
-        createOverlay();
+        createOverlay("การอัพเดทที่จำเป็น โปรดอัพเดทเป็นเวอร์ชั่นล่าสุด");
       } else {
         if(parseFloat(localManifest.version)<parseFloat(remoteManifest.version)){
           updateButton();
@@ -17,12 +17,13 @@ async function check(){
       }
       document.getElementById("container").innerHTML = "เวอร์ชั่นปัจจุบัน:"+localManifest.version+" เวอร์ชั่นล่าสุด:"+remoteManifest.version;
     } catch (error) {
-        alert('Error fetching versions \nplease check your internet connection\n'+ error);
+        alert('รับข้อมูลเวอร์ชั่นผิดพลาด \nโปรดเช็คอินเทอร์เน็ตของท่าน\n'+ error);
+        alert("การใช้งานโดยไม่ตรวจสอบเวอร์ชั่นอาจสร้างความผิดพลาดได้")
       }
   }
 check();
 
-function createOverlay() {
+function createOverlay(textx) {
     const overlay = document.createElement('div');
     overlay.id = 'overlay';
     overlay.style.cssText = `
@@ -53,7 +54,7 @@ function createOverlay() {
         chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/bemiseditor/lfegfcllckbmjfmdceabejdbnhofnbpo' }); // Replace with your desired URL
       });
       const text = document.createElement('p');
-      text.textContent = "การอัพเดทที่จำเป็น โปรดอัพเดทเป็นเวอร์ชั่นล่าสุด"
+      text.textContent = textx
       overlay.appendChild(text);
     overlay.appendChild(button);
     document.body.appendChild(overlay);

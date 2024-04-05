@@ -22,7 +22,6 @@ function loadSettings() {
 
     var settingValue = result
     if (JSON.stringify(settingValue) === "{}"){
-      alert("empty")
       return;
     }
     for (var i = 0; i < settingCheckboxes.length; i++) {
