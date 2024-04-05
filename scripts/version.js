@@ -8,7 +8,7 @@ async function check(){
       const remoteResponse = await fetch('https://raw.githubusercontent.com/keegang6705/BemisEditor/master/manifest.json');
       const remoteManifest = await remoteResponse.json();
       const remoteVersion = parseInt((remoteManifest.version)[0]);
-      if (LocalVersion!==remoteVersion) {
+      if (LocalVersion<remoteVersion) {
         createOverlay();
       } else {
         if(parseFloat(localManifest.version)<parseFloat(remoteManifest.version)){
