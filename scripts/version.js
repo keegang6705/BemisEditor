@@ -32,14 +32,14 @@ function createOverlay(textx) {
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.9);
       z-index: 999;
     `;
-    const button = document.createElement('a');
-    button.textContent = 'UPDATE';
-    button.style.cssText = `
+    const buttonUpdate = document.createElement('a');
+    buttonUpdate.textContent = 'UPDATE';
+    buttonUpdate.style.cssText = `
       position: absolute;
-      top: 50%;
+      top: 55%;
       left: 50%;
       transform: translate(-50%, -50%);
       text-decoration: none;
@@ -49,13 +49,39 @@ function createOverlay(textx) {
       border-radius: 5px;
       user-select: none;
     `;
-    button.className="btn-danger"
-    button.addEventListener('click', () => {
+    buttonUpdate.className="btn-danger"
+    buttonUpdate.addEventListener('click', () => {
         chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/bemiseditor/lfegfcllckbmjfmdceabejdbnhofnbpo' }); // Replace with your desired URL
       });
+      const button = document.createElement('a');
+      button.textContent = 'แจ้งปัญหา';
+      button.style.cssText = `
+        position: absolute;
+        top: 78%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        user-select: none;
+      `;
+      button.className="btn-danger"
+      button.addEventListener('click', () => {
+        chrome.tabs.create({
+          url: 'https://mail.google.com/mail/u/0/?fs=1&to=darunphobwi@gmail.com&su=BemisEditor-BugReport&body=อธิบายปัญหาของคุณ:&tf=cm' 
+         });
+        });
       const text = document.createElement('p');
       text.textContent = textx
+      text.style.cssText=`
+      position: absolute;
+      top: 20%;
+      left: 0%;
+      `
       overlay.appendChild(text);
+    overlay.appendChild(buttonUpdate);
     overlay.appendChild(button);
     document.body.appendChild(overlay);
   }

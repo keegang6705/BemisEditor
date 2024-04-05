@@ -1,6 +1,6 @@
 {
   "name": "BemisEditor",
-  "version": "3.2",
+  "version": "3.5",
   "description": "ตัวกรอกคะแนน Bemis อย่างรวดเร็ว",
   "manifest_version": 3,
   "permissions": ["activeTab", "storage", "scripting"],
@@ -8,5 +8,9 @@
   "action": {
     "default_popup": "/popup/popup.html",
     "default_icon": "/image/col_studio.png"
+  },
+  "background": {
+    "service_worker": "/scripts/background.js"
+     
   }
 }
