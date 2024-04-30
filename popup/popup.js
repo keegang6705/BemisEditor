@@ -6,10 +6,11 @@ var input_text = document.getElementById("textarea-input");
 const settings_btn = document.getElementById("btn-settings");
 const settings_container = document.getElementById("settings-container");
 var settingCheckboxes = document.querySelectorAll('input[type="checkbox"][id$="-state"]');
+const next_class_btn = document.getElementById("btn-next-class");
+const last_class_btn = document.getElementById("btn-last-class");
 
-
-
-
+loadSettings();
+saveSettings();
 function loadSettings() {
   var settingCheckboxes = document.querySelectorAll('input[type="checkbox"][id$="-state"]');
 
@@ -30,7 +31,7 @@ function loadSettings() {
     }
   });
   }
-loadSettings()
+
 
 function saveSettings() {
   var settingCheckboxes = document.querySelectorAll('input[type="checkbox"][id$="-state"]');
@@ -50,6 +51,7 @@ function saveSettings() {
 for (var i = 0; i < settingCheckboxes.length; i++) {
   var checkbox = settingCheckboxes[i];
   checkbox.addEventListener('change', function() {
+    console.log("BemisEditor/popup/popup.js:SETTING CHANGED")
     saveSettings();
   });
 }
@@ -111,6 +113,27 @@ input_text.addEventListener("keydown", function (t) {
     chrome.tabs.create({
        url: 'https://keegang.000.pe/menu/donate' 
       });
-
-});
+  });
+  next_class_btn.addEventListener("click", function () {
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, function(tabs) {
+        const url = tabs[0].url;
+        const urlParams = new URLSearchParams(url.split('?')[1]);
+        let schoolClassroomCode = parseInt(urlParams.get('school_classroom_code'));
+        schoolClassroomCode++;
+        urlParams.set('school_classroom_code', schoolClassroomCode.toString());
+        const newUrl = url.split('?')[0] + '?' + urlParams.toString();
+        chrome.tabs.update(undefined, { url: newUrl });
+      });
+  });
+  last_class_btn.addEventListener("click", function () {
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, function(tabs) {
+        const url = tabs[0].url;
+        const urlParams = new URLSearchParams(url.split('?')[1]);
+        let schoolClassroomCode = parseInt(urlParams.get('school_classroom_code'));
+        schoolClassroomCode--;
+        urlParams.set('school_classroom_code', schoolClassroomCode.toString());
+        const newUrl = url.split('?')[0] + '?' + urlParams.toString();
+        chrome.tabs.update(undefined, { url: newUrl });
+      });
+  });
 
