@@ -8,28 +8,24 @@ const settings_container = document.getElementById("settings-container");
 var settingCheckboxes = document.querySelectorAll('input[type="checkbox"][id$="-state"]');
 const next_class_btn = document.getElementById("btn-next-class");
 const previous_class_btn = document.getElementById("btn-previous-class");
-async function fetch_class(){
-  try{
-  const remoteResponse = await fetch('https://raw.githubusercontent.com/keegang6705/BemisEditor/master/source/classmap.json');
-  const remoteJson = await remoteResponse.json();
-  return jsonToList(remoteJson);
-  } catch {
-    return ['34243', '34249', '34252', '34254', '34255', '34256', '34262', '34265', '34268', '34270', '34272', '34274', '34237', '34238', '34239', '34240', '34241', '34242', '34225', '34232', '34233', '34234', '34235', '34236', '16029', '33142', '33143', '33144', '33145', '33146', '33135', '33136', '33137', '33138', '33139', '33140'];
+const class_nav = document.getElementById("class-nav");
+var class_list =[];
+async function fetch_class() {
+  try {
+    const remoteResponse = await fetch('https://raw.githubusercontent.com/keegang6705/BemisEditor/master/source/classmap.json');
+    if (!remoteResponse.ok) {
+      throw new Error(`Error fetching class data: ${remoteResponse.status}`);
+    }
+    const jsonData = await remoteResponse.json();
+    const classList = Object.values(jsonData);
+    class_list = classList;
+  } catch (error) {
+    console.error("Error fetching class data:", error);
+    class_nav.remove();
+    return
   }
 };
-
-const class_list = fetch_class();
-
-function jsonToList(jsonString) {
-  const jsonObj = JSON.parse(jsonString);
-  if (Array.isArray(jsonObj)) {
-    return jsonObj;
-  } else if (typeof jsonObj === 'object') {
-    return Object.values(jsonObj);
-  } else {
-    return [jsonObj];
-  }
-}
+fetch_class();
 
 loadSettings();
 saveSettings();
