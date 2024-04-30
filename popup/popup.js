@@ -7,7 +7,29 @@ const settings_btn = document.getElementById("btn-settings");
 const settings_container = document.getElementById("settings-container");
 var settingCheckboxes = document.querySelectorAll('input[type="checkbox"][id$="-state"]');
 const next_class_btn = document.getElementById("btn-next-class");
-const last_class_btn = document.getElementById("btn-last-class");
+const previous_class_btn = document.getElementById("btn-previous-class");
+async function fetch_class(){
+  try{
+  const remoteResponse = await fetch('https://raw.githubusercontent.com/keegang6705/BemisEditor/master/source/classmap.json');
+  const remoteJson = await remoteResponse.json();
+  return jsonToList(remoteJson);
+  } catch {
+    return ['34243', '34249', '34252', '34254', '34255', '34256', '34262', '34265', '34268', '34270', '34272', '34274', '34237', '34238', '34239', '34240', '34241', '34242', '34225', '34232', '34233', '34234', '34235', '34236', '16029', '33142', '33143', '33144', '33145', '33146', '33135', '33136', '33137', '33138', '33139', '33140'];
+  }
+};
+
+const class_list = fetch_class();
+
+function jsonToList(jsonString) {
+  const jsonObj = JSON.parse(jsonString);
+  if (Array.isArray(jsonObj)) {
+    return jsonObj;
+  } else if (typeof jsonObj === 'object') {
+    return Object.values(jsonObj);
+  } else {
+    return [jsonObj];
+  }
+}
 
 loadSettings();
 saveSettings();
@@ -114,23 +136,26 @@ input_text.addEventListener("keydown", function (t) {
        url: 'https://keegang.000.pe/menu/donate' 
       });
   });
+
   next_class_btn.addEventListener("click", function () {
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, function(tabs) {
-        const url = tabs[0].url;
-        const urlParams = new URLSearchParams(url.split('?')[1]);
-        let schoolClassroomCode = parseInt(urlParams.get('school_classroom_code'));
-        schoolClassroomCode++;
-        urlParams.set('school_classroom_code', schoolClassroomCode.toString());
-        const newUrl = url.split('?')[0] + '?' + urlParams.toString();
-        chrome.tabs.update(undefined, { url: newUrl });
-      });
+      const url = tabs[0].url;
+      const urlParams = new URLSearchParams(url.split('?')[1]);
+      let schoolClassroomCode = urlParams.get('school_classroom_code');
+      let index = class_list.indexOf(schoolClassroomCode);
+      schoolClassroomCode = class_list[index+1];
+      urlParams.set('school_classroom_code', schoolClassroomCode.toString());
+      const newUrl = url.split('?')[0] + '?' + urlParams.toString();
+      chrome.tabs.update(undefined, { url: newUrl });
+    });
   });
-  last_class_btn.addEventListener("click", function () {
+  previous_class_btn.addEventListener("click", function () {
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, function(tabs) {
         const url = tabs[0].url;
         const urlParams = new URLSearchParams(url.split('?')[1]);
-        let schoolClassroomCode = parseInt(urlParams.get('school_classroom_code'));
-        schoolClassroomCode--;
+        let schoolClassroomCode = urlParams.get('school_classroom_code');
+        let index = class_list.indexOf(schoolClassroomCode);
+        schoolClassroomCode = class_list[index-1];
         urlParams.set('school_classroom_code', schoolClassroomCode.toString());
         const newUrl = url.split('?')[0] + '?' + urlParams.toString();
         chrome.tabs.update(undefined, { url: newUrl });
