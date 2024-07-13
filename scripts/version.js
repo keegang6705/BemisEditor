@@ -51,7 +51,7 @@ function createOverlay(textx) {
     `;
     buttonUpdate.className="btn-danger"
     buttonUpdate.addEventListener('click', () => {
-        chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/bemiseditor/lfegfcllckbmjfmdceabejdbnhofnbpo' }); // Replace with your desired URL
+        chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/bemiseditor/lfegfcllckbmjfmdceabejdbnhofnbpo' });
       });
       const button = document.createElement('a');
       button.textContent = 'แจ้งปัญหา';
@@ -100,7 +100,7 @@ function createOverlay(textx) {
     `;
     button.className="btn-danger"
     button.addEventListener('click', () => {
-        chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/bemiseditor/lfegfcllckbmjfmdceabejdbnhofnbpo' }); // Replace with your desired URL
+        chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/bemiseditor/lfegfcllckbmjfmdceabejdbnhofnbpo' });
       });
     container.appendChild(button);
     container.appendChild(document.createElement("p"))
