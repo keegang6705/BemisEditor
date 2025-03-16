@@ -129,7 +129,7 @@ input_text.addEventListener("keydown", function (t) {
   });
   donate_btn.addEventListener("click", function () {
     chrome.tabs.create({
-       url: 'https://keegang.000.pe/menu/donate' 
+       url: 'https://keegang.cc/donate' 
       });
   });
 
