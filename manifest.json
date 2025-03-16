@@ -1,6 +1,6 @@
 {
   "name": "BemisEditor",
-  "version": "4.0",
+  "version": "4.2",
   "description": "ตัวกรอกคะแนน Bemis อย่างรวดเร็ว",
   "manifest_version": 3,
   "permissions": ["activeTab", "storage", "scripting"],
@@ -11,8 +11,8 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://bemisschool.bangkok.go.th/studentprocess/scorerecord/*"],
-      "js": ["/scripts/content.js"]
+      "matches": ["https://bemisschool.bangkok.go.th/"],
+      "js": ["/scripts/to_scorecord.js"]
     }
   ],
   "host_permissions": [
