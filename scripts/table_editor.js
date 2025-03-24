@@ -39,7 +39,7 @@ function main() {
             exam = false;
             total += parseInt(score);
           } else {
-            console.log("invalid exam score");
+            console.log("BemisEditor:INVALID_EXAM_SCORE");
           }
         } else {
           subjectInput.value = score;
