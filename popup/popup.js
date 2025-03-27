@@ -3,6 +3,7 @@ const open_editor_btn = document.getElementById("btn-open-editor");
 const send_email_btn = document.getElementById("btn-send-email");
 const donate_btn = document.getElementById("btn-donate");
 var input_text = document.getElementById("textarea-input");
+const feature_btn = document.getElementById("btn-feature");
 const settings_btn = document.getElementById("btn-settings");
 const settings_container = document.getElementById("settings-container");
 var settingCheckboxes = document.querySelectorAll('input[type="checkbox"][id$="-state"]');
@@ -73,6 +74,12 @@ for (var i = 0; i < settingCheckboxes.length; i++) {
     saveSettings();
   });
 }
+
+feature_btn.addEventListener("click", function() {
+  chrome.tabs.create({
+    url: '' 
+   });
+});
 
 settings_btn.addEventListener("click", function() {
   if (settings_container.style.display === "none") {

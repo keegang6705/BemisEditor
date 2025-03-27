@@ -1,16 +1,15 @@
 function main() {
   console.log("BemisEditor:STARTING_PROGRAM");
-  let e = selectTable();
-  if ("ERR_TABLE_NOT_FOUND" == e) {
-    localStorage.setItem("children_table", "ERR_TABLE_NOT_FOUND");
-    alert(
-      'ไม่มีข้อมูลตาราง\nโปรดตรวจสอบให้แน่ใจว่าอยู่ในหน้า"แก้ไขบันทึกคะแนน"'
-    );
-    return;
-  }
-  console.log(e);
-
   document.addEventListener("paste", (event) => {
+    let e = selectTable();
+    if ("ERR_TABLE_NOT_FOUND" == e) {
+      localStorage.setItem("children_table", "ERR_TABLE_NOT_FOUND");
+      alert(
+        'ไม่มีข้อมูลตาราง\nโปรดตรวจสอบให้แน่ใจว่าอยู่ในหน้า"แก้ไขบันทึกคะแนน"'
+      );
+      return;
+    }
+    console.log(e);
     const clipboardData = event.clipboardData || window.clipboardData;
     const pastedText = clipboardData.getData("text");
 
