@@ -1,0 +1,81 @@
+function main() {
+  console.log("BemisEditor:STARTING_PROGRAM");
+  let e = selectTable();
+  if ("ERR_TABLE_NOT_FOUND" == e) {
+    localStorage.setItem("children_table", "ERR_TABLE_NOT_FOUND");
+    alert(
+      'ไม่มีข้อมูลตาราง\nโปรดตรวจสอบให้แน่ใจว่าอยู่ในหน้า"แก้ไขบันทึกคะแนน"'
+    );
+    return;
+  }
+  console.log(e);
+
+  document.addEventListener("paste", (event) => {
+    const clipboardData = event.clipboardData || window.clipboardData;
+    const pastedText = clipboardData.getData("text");
+
+    try {
+      const scores = pastedText
+        .trim()
+        .split("\n")
+        .map(row => row.split("\t").map(val => val.trim() || "0"));
+
+      for (let i = 0; i < scores.length; i++) {
+        for (let j = 0; j < scores[i].length; j++) {
+          if (scores[i][j] === "" || scores[i][j] === null) {
+            scores[i][j] = "0";
+          }
+        }
+      }
+
+      for (let rowIndex = 0; rowIndex < scores.length; rowIndex++) {
+        const row = scores[rowIndex];
+        let total = 0;
+        let exam = true;
+
+        for (let colIndex = 0; colIndex < row.length; colIndex++) {
+          const score = row[colIndex];
+
+          const subjectInput = document.querySelector(
+            `input[name="subjectScoringDetail[${rowIndex}][${colIndex}]"]`
+          );
+
+          if (!subjectInput) {
+            const examInput = document.querySelector(
+              `input[name="examScore[${rowIndex}]"]`
+            );
+            if (examInput && exam) {
+              examInput.value = score;
+              exam = false;
+              total += parseInt(score);
+            } else {
+              console.log("BemisEditor:INVALID_EXAM_SCORE");
+            }
+          } else {
+            subjectInput.value = score;
+            total += parseInt(score);
+          }
+        }
+
+        const totalInput = document.querySelector(
+          `input[name="totalScore[${rowIndex}]"]`
+        );
+        totalInput.value = total;
+      }
+      console.log("BemisEditor:SCORES_PASTED_SUCCESSFULLY");
+    } catch (error) {
+      console.error("BemisEditor:INVALID_CLIPBOARD_DATA", error);
+      alert("ข้อมูลในคลิปบอร์ดไม่ถูกต้อง กรุณาตรวจสอบข้อมูลที่คัดลอกจาก Excel");
+    }
+  });
+}
+
+function selectTable() {
+  console.log("BemisEditor:SELECTING_TABLE");
+  let e = document.querySelectorAll("table");
+  return e.length > 0
+    ? (console.log("BemisEditor:TABLE_FOUND"), e[1])
+    : (console.log("BemisEditor:NO_TABLE_FOUND"), "ERR_TABLE_NOT_FOUND");
+}
+
+console.log("BemisEditor/scripts/table_editorX.js:LOADED"), main();
