@@ -1,4 +1,4 @@
-console.log('scorecord.js:LOADED');
+console.log('BemisEditor/scripts/scorecord.js:LOADED');
 var expand_table = false;
 chrome.storage.sync.get(null, function(result) {
     if (chrome.runtime.lastError) {
@@ -17,11 +17,11 @@ function expandTable(){
     try {
     let e = document.querySelector('div[style*="max-height: 400px"]');
     e.style.maxHeight = "100%";
-    console.log('scorecord.js:EXPAND_TABLE_SUCCESS');
+    console.log('BemisEditor/scripts/scorecord.js:EXPAND_TABLE_SUCCESS');
     clearInterval(retryInterval);
     clearInterval(retryInterval2);
     } catch (error) {
-        console.warn("scorecord.js:EXPAND_TABLE_FAILED_RETRY");
+        console.warn("BemisEditor/scripts/scorecord.js:EXPAND_TABLE_FAILED_RETRY");
     }
 }
 function addOption() {
@@ -34,18 +34,26 @@ function addOption() {
         if (!targetElement) throw new Error("Target element not found");
 
         targetElement.appendChild(option);
-        console.log("scorecord.js:ADD_OPTION_SUCCESS");
+        console.log("BemisEditor/scripts/scorecord.js:ADD_OPTION_SUCCESS");
         clearInterval(retryInterval);
         clearInterval(retryInterval2);
     } catch (error) {
-        console.warn("scorecord.js:ADD_OPTION_FAILED_RETRY");
+        console.warn("BemisEditor/scripts/scorecord.js:ADD_OPTION_FAILED_RETRY");
     }
 }
 
-let retryInterval = expand_table? setInterval(addOption, 1000): null;
-let retryInterval2 = setInterval(expandTable, 1000);
-setTimeout(() => {
-    clearInterval(retryInterval);
-    clearInterval(retryInterval2);
-    console.error("scorecord.js:FAILED_MAX_RETRY");
-}, 30000);
+const targetNode = document.body;
+const observerOptions = { childList: true, subtree: true };
+
+const observer = new MutationObserver(() => {
+    if (!document.querySelector(".sc-fqkvVR")) {
+        console.log("Element .sc-fqkvVR has disappeared!");
+        expand_table? addOption(): null;
+        expandTable();
+        observer.disconnect();
+
+    }
+});
+
+observer.observe(targetNode, observerOptions);
+

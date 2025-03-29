@@ -1,12 +1,10 @@
 function main() {
-  console.log("BemisEditor:STARTING_PROGRAM");
+  console.log("BemisEditor/scripts/table-editorX:OBSERVING");
   document.addEventListener("paste", (event) => {
+    console.log("BemisEditor/scripts/table-editorX:PASTE_EVENT_DETECTED");
     let e = selectTable();
     if ("ERR_TABLE_NOT_FOUND" == e) {
       localStorage.setItem("children_table", "ERR_TABLE_NOT_FOUND");
-      alert(
-        'ไม่มีข้อมูลตาราง\nโปรดตรวจสอบให้แน่ใจว่าอยู่ในหน้า"แก้ไขบันทึกคะแนน"'
-      );
       return;
     }
     console.log(e);
@@ -48,7 +46,7 @@ function main() {
               exam = false;
               total += parseInt(score);
             } else {
-              console.log("BemisEditor:INVALID_EXAM_SCORE");
+              console.log("BemisEditor/scripts/table-editorX:INVALID_EXAM_SCORE");
             }
           } else {
             subjectInput.value = score;
@@ -61,20 +59,20 @@ function main() {
         );
         totalInput.value = total;
       }
-      console.log("BemisEditor:SCORES_PASTED_SUCCESSFULLY");
+      console.log("BemisEditor/scripts/table-editorX:SCORES_PASTED_SUCCESSFULLY");
     } catch (error) {
-      console.error("BemisEditor:INVALID_CLIPBOARD_DATA", error);
+      console.error("BemisEditor/scripts/table-editorX:INVALID_CLIPBOARD_DATA", error);
       alert("ข้อมูลในคลิปบอร์ดไม่ถูกต้อง กรุณาตรวจสอบข้อมูลที่คัดลอกจาก Excel");
     }
   });
 }
 
 function selectTable() {
-  console.log("BemisEditor:SELECTING_TABLE");
+  console.log("BemisEditor/scripts/table-editorX:SELECTING_TABLE");
   let e = document.querySelectorAll("table");
   return e.length > 0
-    ? (console.log("BemisEditor:TABLE_FOUND"), e[1])
-    : (console.log("BemisEditor:NO_TABLE_FOUND"), "ERR_TABLE_NOT_FOUND");
+    ? (console.log("BemisEditor/scripts/table-editorX:TABLE_FOUND"), e[1])
+    : (console.log("BemisEditor/scripts/table-editorX:NO_TABLE_FOUND"), "ERR_TABLE_NOT_FOUND");
 }
 
 console.log("BemisEditor/scripts/table_editorX.js:LOADED"), main();

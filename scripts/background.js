@@ -1,8 +1,7 @@
 console.log("BemisEditor/scripts/background.js:LOADED");
 
 const url_list = [
-  { path: "", parameter: [] , script:""},
-  { path: "studentprocess/scorerecord", parameter: [], script:"/scripts/table_editorX.js" },
+  { path: "studentprocess/scorerecord", parameter: [], script:["/scripts/scorecord.js","/scripts/table_editorX.js"] },
 ];
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
@@ -16,9 +15,11 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       
       if (tab.url.startsWith(`https://bemisschool.bangkok.go.th/${current_url}`)) {
         foundMatch = true;
+        console.log("BemisEditor/scripts/background.js:URL_MATCHED");
+        console.log(`BemisEditor/scripts/background.js:INJECTING_SCRIPT>>'${current_script}'`);
         chrome.scripting.executeScript({
             target: { tabId: tabId },
-            files: [current_script],
+            files: current_script,
           });
         if (tab.url.includes("bme=true") || tab.url.includes("bme=false")) {
           break;
