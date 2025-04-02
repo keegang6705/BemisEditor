@@ -77,7 +77,7 @@ for (var i = 0; i < settingCheckboxes.length; i++) {
 
 feature_btn.addEventListener("click", function() {
   chrome.tabs.create({
-    url: 'https://raw.githubusercontent.com/keegang6705/BemisEditor/master/source/feature.mp4' 
+    url: 'https://youtu.be/n1TX-kPW7lQ' 
    });
 });
 

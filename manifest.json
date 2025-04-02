@@ -1,13 +1,13 @@
 {
   "name": "BemisEditor",
-  "version": "5.0",
+  "version": "5.1",
   "description": "ตัวกรอกคะแนน Bemis อย่างรวดเร็ว",
   "manifest_version": 3,
   "permissions": ["activeTab", "storage", "scripting"],
-  "icons": { "128": "/image/col_studio.png" },
+  "icons": { "128": "/image/BemisEditor.png" },
   "action": {
     "default_popup": "/popup/popup.html",
-    "default_icon": "/image/col_studio.png"
+    "default_icon": "/image/BemisEditor.png"
   },
   "content_scripts": [
     {
