@@ -2,7 +2,7 @@ console.log('BemisEditor/scripts/scorecord.js:LOADED');
 var expand_table = false;
 chrome.storage.sync.get(null, function(result) {
     if (chrome.runtime.lastError) {
-      alert('Error loading setting:', chrome.runtime.lastError);
+      console.log('BemisEditor/scripts/scorecord.js:', chrome.runtime.lastError);
       return;
     }
 
@@ -26,15 +26,15 @@ function addOption() {
     try {
         let option = document.createElement("option");
         option.value = "99999";
-        option.innerHTML = "BemisEditor.value.99999";
+        option.innerHTML = "99999";
 
-        let targetElement = document.querySelector(".sc-iHGNWf");
+        let targetElement = document.querySelector('[aria-label="จำนวนรายการต่อหน้า"]');
         if (!targetElement) throw new Error("Target element not found");
 
         targetElement.appendChild(option);
         console.log("BemisEditor/scripts/scorecord.js:ADD_OPTION_SUCCESS");
     } catch (error) {
-        console.log("BemisEditor/scripts/scorecord.js:ADD_OPTION_FAILED");
+        console.log("BemisEditor/scripts/scorecord.js:"+ error);
     }
 }
 
@@ -45,8 +45,8 @@ const observer = new MutationObserver(() => {
     if (!document.querySelector(".sc-fqkvVR")) {
         console.log("Element .sc-fqkvVR has disappeared!");
         setTimeout(() => {
-            expand_table? addOption(): null;
-            expandTable();
+            expand_table? expandTable(): null;
+            addOption();
         }, 500);
         observer.disconnect();
 
