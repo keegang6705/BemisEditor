@@ -1,6 +1,6 @@
 {
   "name": "BemisEditor",
-  "version": "5.2",
+  "version": "5.3",
   "description": "ตัวกรอกคะแนน Bemis อย่างรวดเร็ว",
   "manifest_version": 3,
   "permissions": ["activeTab", "storage", "scripting"],
