@@ -131,7 +131,7 @@ input_text.addEventListener("keydown", function (t) {
   });
   send_email_btn.addEventListener("click", function () {
         chrome.tabs.create({
-           url: 'https://mail.google.com/mail/u/0/?fs=1&to=darunphobwi@gmail.com&su=BemisEditor-BugReport&body=อธิบายปัญหาของคุณ:&tf=cm' 
+           url: 'https://keegang.cc/contact' 
           });
   });
   donate_btn.addEventListener("click", function () {

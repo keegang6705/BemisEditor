@@ -1,6 +1,7 @@
 {
   "name": "BemisEditor",
-  "version": "5.3",
+  "version": "5.4",
+  "version_name": "2025.5.12-1-chrome",
   "description": "ตัวกรอกคะแนน Bemis อย่างรวดเร็ว",
   "manifest_version": 3,
   "permissions": ["activeTab", "storage", "scripting"],
